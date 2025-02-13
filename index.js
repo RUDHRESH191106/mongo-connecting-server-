@@ -1,15 +1,18 @@
+const mongoose = require('mongoose');
 const express = require('express');
-const { resolve } = require('path');
 
 const app = express();
-const port = 3010;
+app.use(express.json());
 
-app.use(express.static('static'));
+mongoose.connect('mongodb+srv://rudhreshm191106:rudh123+@cluster0.zone4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+.then(() => {
+    console.log('Connected to MongoDB');
 
-app.get('/', (req, res) => {
-  res.sendFile(resolve(__dirname, 'pages/index.html'));
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  
+    app.listen(8080, () => {
+        console.log('Server running on port 8080');
+    });
+})
+.catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
 });
